@@ -1,0 +1,68 @@
+import java.io.*;
+import java.util.*;
+
+public class Compact {
+	public static void main(String[] args) {
+		File file = new File("compact.txt");
+		Scanner in = null;
+		Compact com = new Compact();
+		try {
+			in = new Scanner(file);
+			ArrayList<Integer> arrayList = new ArrayList<Integer>();
+			while (in.hasNextInt()) {
+				arrayList.add(in.nextInt());
+			}
+			int[] array = new int[arrayList.size()];
+			for (int i = 0; i < arrayList.size(); i++) {
+				array[i] = arrayList.get(i);
+			}
+			com.compactArray(array);
+			com.compactArrayList(arrayList);
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	void compactArray(int[] input) {
+		System.out.println("array\n");
+		System.out.print("Before: ");
+		for (int x:input) {
+			System.out.print(x + ", ");
+		}
+		System.out.println();
+		int len = input.length;
+		for(int i = 0; i < len; ++i) {
+			if(input[i] == 0) {
+				--len;
+				for(int j = i; j < len; ++j) {
+					input[j] = input[j+1];
+				}
+				i--;
+			}
+		}
+		System.out.print("After: ");
+		for (int x:input) {
+			System.out.print(x + ", ");
+		}
+		System.out.println("\n");
+	}
+	
+	void compactArrayList(ArrayList<Integer> input) {
+		System.out.println("ArrayList\n");
+		System.out.print("Before: ");
+		for (int x:input) {
+			System.out.print(x + ", ");
+		}
+		System.out.println();
+		Iterator<Integer> iter = input.iterator();
+		while (iter.hasNext()) {
+			if (iter.next() == 0) {
+				iter.remove();
+			}
+		}
+		System.out.print("After: ");
+		for (int x:input) {
+			System.out.print(x + ", ");
+		}
+		System.out.println("\n");
+	}
